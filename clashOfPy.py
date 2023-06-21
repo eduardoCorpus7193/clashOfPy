@@ -1,3 +1,5 @@
+import random
+
 class Character:
 	name = "char"
 	hp = 100
@@ -18,8 +20,18 @@ class Character:
 		print("Name:", self.name, "HP:", self.hp, "Strenghts:", self.strenghts, "Weaknesses:", self.weaknesses, "Attack points: ", self.atkPoints)
 
 	def attack(self, other):
-		print(self.name, "is attacking to", other.name, "HP before attack:", other.currentHP)
-		other.currentHP = other.currentHP - self.atkPoints
+		atkModified = 0
+		rndAttakPlus = 0
+		print(self.name, "is attacking to", other.name, ", HP before attack:", other.currentHP)
+		if(other.weaknesses == self.strenghts):
+			print(self.name, "is very effective against", other.name)
+			rndAttakPlus = random.randint(1, 5)
+			atkModified = self.atkPoints + rndAttakPlus
+			other.currentHP = other.currentHP - atkModified
+			print(self.name, " attacked ", other.name, " and reduced ", self.atkPoints, " + ", rndAttakPlus, " because is very effective")
+		else:
+			other.currentHP = other.currentHP - atkModified
+			print(self.name, " attacked ", other.name, " and reduced ", self.atkPoints)
 		if other.currentHP <= 0:
 			other.currentHP = 0
 		print(other.name, "HP after attack ", other.currentHP)
@@ -39,24 +51,21 @@ while validate == True:
 	#Creating first character
 	if(optionOne == 1):
 		#Creating wizard
-		char1 = Character("Wizard", 80, "Firearm", "Melee", 80, 23)
+		char1 = Character("Wizard", 80, "Firearm", "Melee", 80, 17)
 		print("\nFirst player is: ")
 		char1.identify()
-		print("\n")
 
 	if(optionOne == 2):
 		#Creating giant
-		char1 = Character("Giant", 120, "Magic", "Firearm", 120, 28)
+		char1 = Character("Giant", 105, "Magic", "Firearm", 120, 22)
 		print("\nFirst player is: ")
 		char1.identify()
-		print("\n")
 
 	if(optionOne == 3):
 		#Creating Hunter
-		char1 = Character("Hunter", 100, "Melee", "Magic", 80, 21)
+		char1 = Character("Hunter", 95, "Melee", "Magic", 80, 19)
 		print("\nFirst player is: ")
 		char1.identify()
-		print("\n")
 
 	while True:
 		try:
@@ -74,21 +83,18 @@ while validate == True:
 		char2 = Character("Wizard", 80, "Firearm", "Melee", 80, 23)
 		print("\nSecond player is: ")
 		char2.identify()
-		print("\n")
 
 	if(optionTwo == 2):
 		#Creating giant
 		char2 = Character("Giant", 120, "Magic", "Firearm", 120, 28)
 		print("\nSecond player is: ")
 		char2.identify()
-		print("\n")
 
 	if(optionTwo == 3):
 		#Creating Hunter
 		char2 = Character("Hunter", 100, "Melee", "Magic", 80, 21)
 		print("\nSecond player is: ")
 		char2.identify()
-		print("\n")
 
 	#start the turns
 	turn = 1
