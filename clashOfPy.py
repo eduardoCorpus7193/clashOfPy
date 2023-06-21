@@ -1,5 +1,6 @@
 import random
 
+#creating the class character including the atributes of the object
 class Character:
 	name = "char"
 	hp = 100
@@ -16,13 +17,17 @@ class Character:
 		self.currentHP = currentHP
 		self.atkPoints = atkPoints
 
+	#function to print the character atributes filled with the character selected by the user
 	def identify(self):
 		print("Name:", self.name, "HP:", self.hp, "Strenghts:", self.strenghts, "Weaknesses:", self.weaknesses, "Attack points: ", self.atkPoints)
 
+	#function to simulate the attack of the characters
 	def attack(self, other):
+		#varibles to modify the attack points depending the strenghts
 		atkModified = 0
 		rndAttakPlus = 0
 		print(self.name, "is attacking to", other.name, ", HP before attack:", other.currentHP)
+		#if the attacking character is strenght that the attacked character, gains extra points
 		if(other.weaknesses == self.strenghts):
 			print(self.name, "is very effective against", other.name)
 			rndAttakPlus = random.randint(1, 5)
@@ -35,9 +40,10 @@ class Character:
 		if other.currentHP <= 0:
 			other.currentHP = 0
 		print(other.name, "HP after attack ", other.currentHP)
-
+#added an option to play again
 validate = True
 while validate == True:
+	#selecting the first character
 	while True:
 	    try:
 	    	optionOne = int(input("\nSelect the first character: \n1.-Wizard(magic)\n2.-Giant(melee)\n3.-Hunter(fire arm)"))
@@ -67,6 +73,7 @@ while validate == True:
 		print("\nFirst player is: ")
 		char1.identify()
 
+	#selecting the second character
 	while True:
 		try:
 			optionTwo = int(input("\nSelect the second character char: \n1.-Wizard(magic)\n2.-Giant(melee)\n3.-Hunter(fire arm)"))
@@ -77,7 +84,7 @@ while validate == True:
 		except ValueError:
 			print("\nOops!  That was no valid option.  Try again...")
 
-	#Creatin second character
+	#Creating second character
 	if(optionTwo == 1):
 		#Creating wizard
 		char2 = Character("Wizard", 80, "Firearm", "Melee", 80, 23)
@@ -99,6 +106,7 @@ while validate == True:
 	#start the turns
 	turn = 1
 
+	#checking which character is going to attack and send it to the attack function
 	while char1.currentHP>0:
 		if char2.currentHP>0:
 			if turn%2==1:
@@ -114,6 +122,7 @@ while validate == True:
 					print(char2.name, "wins")
 					break
 
+	#validating if the player wants to play again
 	sino = input("\nDo you want to play again? y/n")
 	if sino != "y":
 		validate = False
